@@ -39,3 +39,40 @@
 
 
 ## 因为对XXL做了一些修改，所以维护在代码库，方便随时下载打包，目前统一使用2.0.1最近稳定版
+
+-配置文件接入了Apollo
+主要内容
+### web
+server.port = 18080
+server.context-path = /xxl-job-admin
+### resources
+spring.mvc.static-path-pattern = /static/**
+spring.resources.static-locations = classpath:/static/
+### freemarker
+spring.freemarker.templateLoaderPath = classpath:/templates/
+spring.freemarker.suffix = .ftl
+spring.freemarker.charset = UTF-8
+spring.freemarker.request-context-attribute = request
+spring.freemarker.settings.number_format = 0.##########
+### mybatis
+mybatis.mapper-locations = classpath:/mybatis-mapper/*Mapper.xml
+### xxl-job, datasource
+spring.datasource.url = jdbc:mysql://xxx:3306/xxl-job?Unicode=true&characterEncoding=UTF-8
+spring.datasource.username = xxx
+spring.datasource.password = xxx
+spring.datasource.driver-class-name = com.mysql.jdbc.Driver
+spring.datasource.type = org.apache.tomcat.jdbc.pool.DataSource
+spring.datasource.tomcat.max-wait = 10000
+spring.datasource.tomcat.max-active = 30
+spring.datasource.tomcat.test-on-borrow = true
+### xxl-job email
+xxl.job.mail.host = smtp.exmail.qq.com
+xxl.job.mail.port = 465
+xxl.job.mail.ssl = true
+xxl.job.mail.username = xx@xx.com
+xxl.job.mail.password = xxx
+xxl.job.mail.sendNick = 《任务调度平台XXL-JOB》
+### xxl-job, access token
+xxl.job.accessToken = 
+### xxl-job, i18n (default empty as chinese, "en" as english)
+xxl.job.i18n = 
