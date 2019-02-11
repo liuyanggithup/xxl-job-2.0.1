@@ -54,6 +54,9 @@ public class XxlJobAdminConfig implements InitializingBean{
     @Value("${xxl.job.accessToken}")
     private String accessToken;
 
+    @Value("${xxl.job.maxErrorCountAlarm}")
+    private int maxErrorCountAlarm;
+
     // dao, service
 
     @Resource
@@ -98,6 +101,10 @@ public class XxlJobAdminConfig implements InitializingBean{
 
     public String getAccessToken() {
         return accessToken;
+    }
+
+    public int getMaxErrorCountAlarm() {
+        return maxErrorCountAlarm;
     }
 
     public XxlJobLogDao getXxlJobLogDao() {

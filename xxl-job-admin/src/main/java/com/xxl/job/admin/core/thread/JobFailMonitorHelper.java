@@ -168,6 +168,14 @@ public class JobFailMonitorHelper {
 	 */
 	private void failAlarm(XxlJobInfo info, XxlJobLog jobLog){
 
+		//如果当天失败超过N次，不告警
+		int maxErrorCountAlarm = XxlJobAdminConfig.getAdminConfig().getMaxErrorCountAlarm();
+		int errorCountByJobId = XxlJobAdminConfig.getAdminConfig().getXxlJobLogDao().errorCountByJobId(info.getId());
+		if(maxErrorCountAlarm > 0 && errorCountByJobId > maxErrorCountAlarm){
+			logger.info(">>>>>>>>>>> job errorCount too much, job failAlarm cancel, JobLogId:{}", info.getId());
+			return;
+		}
+
 		// send monitor email
 		if (info!=null && info.getAlarmEmail()!=null && info.getAlarmEmail().trim().length()>0) {
 
@@ -193,8 +201,6 @@ public class JobFailMonitorHelper {
 				MailUtil.sendMail(email, title, content);
 			}
 		}
-
-		// TODO, custom alarm strategy, such as sms
 
 	}
 
