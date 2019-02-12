@@ -76,3 +76,5 @@ xxl.job.mail.sendNick = 《任务调度平台XXL-JOB》
 xxl.job.accessToken = 
 ### xxl-job, i18n (default empty as chinese, "en" as english)
 xxl.job.i18n = 
+### xxl-job, maxErrorCountAlarm
+xxl.job.maxErrorCountAlarm = 30
