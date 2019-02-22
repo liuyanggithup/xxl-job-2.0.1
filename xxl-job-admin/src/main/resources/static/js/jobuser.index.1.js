@@ -149,7 +149,7 @@ $(function(){
         rules : {
             username : {
                 required : true ,
-                rangelength:[5,50],
+                rangelength:[3,50],
                 myValid01: true
             },
             password : {
@@ -160,7 +160,7 @@ $(function(){
         messages : {
             username : {
                 required : '请输入用户名'  ,
-                rangelength : "用户名长度限制为5~50"
+                rangelength : "用户名长度限制为3~50"
             },
             password : {
                 required : '请输入密码'  ,
@@ -234,7 +234,7 @@ $(function(){
         rules : {
             username : {
                 required : true ,
-                rangelength:[5,50],
+                rangelength:[3,50],
                 myValid01: true
             },
             password : {
@@ -245,7 +245,7 @@ $(function(){
         messages : {
             username : {
                 required : '请输入用户名'  ,
-                rangelength : "用户名长度限制为5~50"
+                rangelength : "用户名长度限制为3~50"
             },
             password : {
                 required : '请输入密码'  ,
