@@ -81,8 +81,8 @@ public class JobUserController {
             return new ReturnT<String>(ReturnT.FAIL.getCode(), "用户名不可为空");
         }
 
-        if(xxlJobUser.getUsername().length() < 5 || xxlJobUser.getUsername().length() > 50){
-            return new ReturnT<String>(ReturnT.FAIL.getCode(), "用户名长度限制为5~50");
+        if(xxlJobUser.getUsername().length() < 3 || xxlJobUser.getUsername().length() > 50){
+            return new ReturnT<String>(ReturnT.FAIL.getCode(), "用户名长度限制为3~50");
         }
 
         if (StringUtils.isBlank(xxlJobUser.getPassword())){
