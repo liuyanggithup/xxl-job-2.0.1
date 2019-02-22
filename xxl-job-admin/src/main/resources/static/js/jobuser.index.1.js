@@ -249,7 +249,7 @@ $(function(){
             },
             password : {
                 required : '请输入密码'  ,
-                rangelength : "密码长度限制为5~50"
+                rangelength : "密码长度限制为4~50"
             }
         },
         highlight : function(element) {
