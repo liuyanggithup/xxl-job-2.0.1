@@ -15,13 +15,13 @@ $(function(){
         rules : {  
         	userName : {  
         		required : true ,
-                minlength: 5,
-                maxlength: 18
+                minlength: 3,
+                maxlength: 50
             },  
             password : {  
             	required : true ,
-                minlength: 5,
-                maxlength: 18
+                minlength: 4,
+                maxlength: 50
             } 
         }, 
         messages : {  
