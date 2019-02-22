@@ -88,7 +88,7 @@ public class JobUserController {
         if (StringUtils.isBlank(xxlJobUser.getPassword())){
             return new ReturnT<String>(ReturnT.FAIL.getCode(), "密码不可为空");
         }
-        if (!(xxlJobUser.getPassword().length()>=4 && xxlJobUser.getPassword().length()<=100)) {
+        if (!(xxlJobUser.getPassword().length()>=4 && xxlJobUser.getPassword().length()<=50)) {
             return new ReturnT<String>(ReturnT.FAIL.getCode(), "密码长度限制为4~50");
         }
 
