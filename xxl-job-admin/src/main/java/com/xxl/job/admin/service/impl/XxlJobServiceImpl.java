@@ -37,8 +37,6 @@ import java.util.stream.Collectors;
 @Service
 public class XxlJobServiceImpl implements XxlJobService {
 	private static Logger logger = LoggerFactory.getLogger(XxlJobServiceImpl.class);
-	public static final String LOGIN_IDENTITY_KEY = "XXL_JOB_LOGIN_IDENTITY";
-	public static final String LOGIN_IDENTITY_SPLIT = "#";
 	@Resource
 	private XxlJobGroupDao xxlJobGroupDao;
 	@Resource

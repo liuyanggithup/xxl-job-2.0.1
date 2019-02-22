@@ -3,10 +3,9 @@ package com.xxl.job.admin.controller;
 import com.xxl.job.admin.controller.annotation.PermessionLimit;
 import com.xxl.job.admin.core.model.XxlJobGroup;
 import com.xxl.job.admin.core.model.XxlJobUser;
-import com.xxl.job.admin.core.util.CookieUtil;
 import com.xxl.job.admin.dao.XxlJobGroupDao;
 import com.xxl.job.admin.dao.XxlJobUserDao;
-import com.xxl.job.admin.service.impl.XxlJobServiceImpl;
+import com.xxl.job.admin.service.impl.LoginService;
 import com.xxl.job.core.biz.model.ReturnT;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -26,6 +25,7 @@ import java.util.Map;
 
 /**
  * index controller
+ *
  * @author liuyang 2015-12-19 16:13:16
  */
 @Controller
@@ -33,6 +33,9 @@ import java.util.Map;
 public class JobUserController {
 
     private static Logger logger = LoggerFactory.getLogger(JobUserController.class);
+
+    @Resource
+    private LoginService loginService;
 
     @Resource
     private XxlJobUserDao xxlJobUserDao;
@@ -45,7 +48,7 @@ public class JobUserController {
     public String index(Model model) {
 
         List<XxlJobGroup> jobGroups = xxlJobGroupDao.findAll();
-        model.addAttribute("jobGroups",jobGroups);
+        model.addAttribute("jobGroups", jobGroups);
         return "jobuser/jobuser.index";
     }
 
@@ -65,8 +68,8 @@ public class JobUserController {
         // package result
         Map<String, Object> maps = new HashMap<String, Object>();
         maps.put("data", data);
-        maps.put("recordsTotal", list_count);		// 总记录数
-        maps.put("recordsFiltered", list_count);	// 过滤后的总记录数
+        maps.put("recordsTotal", list_count);        // 总记录数
+        maps.put("recordsFiltered", list_count);    // 过滤后的总记录数
         return maps;
     }
 
@@ -74,21 +77,21 @@ public class JobUserController {
     @RequestMapping("/add")
     @PermessionLimit(adminuser = true)
     @ResponseBody
-    public ReturnT<String> add(XxlJobUser xxlJobUser){
+    public ReturnT<String> add(XxlJobUser xxlJobUser) {
 
         // valid
-        if (StringUtils.isBlank(xxlJobUser.getUsername())){
+        if (StringUtils.isBlank(xxlJobUser.getUsername())) {
             return new ReturnT<String>(ReturnT.FAIL.getCode(), "用户名不可为空");
         }
 
-        if(xxlJobUser.getUsername().length() < 3 || xxlJobUser.getUsername().length() > 50){
+        if (xxlJobUser.getUsername().length() < 3 || xxlJobUser.getUsername().length() > 50) {
             return new ReturnT<String>(ReturnT.FAIL.getCode(), "用户名长度限制为3~50");
         }
 
-        if (StringUtils.isBlank(xxlJobUser.getPassword())){
+        if (StringUtils.isBlank(xxlJobUser.getPassword())) {
             return new ReturnT<String>(ReturnT.FAIL.getCode(), "密码不可为空");
         }
-        if (!(xxlJobUser.getPassword().length()>=4 && xxlJobUser.getPassword().length()<=50)) {
+        if (!(xxlJobUser.getPassword().length() >= 4 && xxlJobUser.getPassword().length() <= 50)) {
             return new ReturnT<String>(ReturnT.FAIL.getCode(), "密码长度限制为4~50");
         }
 
@@ -97,7 +100,7 @@ public class JobUserController {
         xxlJobUser.setPassword(md5Password);
 
         int ret = xxlJobUserDao.add(xxlJobUser);
-        return ret>0? ReturnT.SUCCESS: ReturnT.FAIL;
+        return ret > 0 ? ReturnT.SUCCESS : ReturnT.FAIL;
     }
 
     /**
@@ -108,16 +111,14 @@ public class JobUserController {
     @RequestMapping("/delete")
     @PermessionLimit(adminuser = true)
     @ResponseBody
-    public ReturnT<String> delete(HttpServletRequest request, String username){
+    public ReturnT<String> delete(HttpServletRequest request, String username) {
 
-        String indentityInfo = CookieUtil.getValue(request, XxlJobServiceImpl.LOGIN_IDENTITY_KEY);
-        String[] split = indentityInfo.split(XxlJobServiceImpl.LOGIN_IDENTITY_SPLIT);
+        XxlJobUser xxlJobUser = loginService.ifLogin(request);
+        String name = xxlJobUser.getUsername();
 
-        String name = split[0];
         if (name.equals(username)) {
             return new ReturnT<String>(ReturnT.FAIL.getCode(), "禁止操作当前登录账号");
         }
-
         xxlJobUserDao.delete(username);
         return ReturnT.SUCCESS;
     }
@@ -130,12 +131,10 @@ public class JobUserController {
     @RequestMapping("/update")
     @PermessionLimit(adminuser = true)
     @ResponseBody
-    public ReturnT<String> update(HttpServletRequest request, XxlJobUser xxlJobUser){
-
-        
+    public ReturnT<String> update(HttpServletRequest request, XxlJobUser xxlJobUser) {
 
         // valid
-        if (StringUtils.isBlank(xxlJobUser.getUsername())){
+        if (StringUtils.isBlank(xxlJobUser.getUsername())) {
             return new ReturnT<String>(ReturnT.FAIL.getCode(), "用户名不可为空");
         }
 
@@ -145,7 +144,7 @@ public class JobUserController {
         }
 
         if (StringUtils.isNotBlank(xxlJobUser.getPassword())) {
-            if (!(xxlJobUser.getPassword().length()>=4 && xxlJobUser.getPassword().length()<=50)) {
+            if (!(xxlJobUser.getPassword().length() >= 4 && xxlJobUser.getPassword().length() <= 50)) {
                 return new ReturnT<String>(ReturnT.FAIL.getCode(), "密码长度限制为4~50");
             }
             // passowrd md5
@@ -155,7 +154,7 @@ public class JobUserController {
         existUser.setPermission(xxlJobUser.getPermission());
 
         int ret = xxlJobUserDao.update(existUser);
-        return ret>0? ReturnT.SUCCESS: ReturnT.FAIL;
+        return ret > 0 ? ReturnT.SUCCESS : ReturnT.FAIL;
     }
 
 
@@ -164,14 +163,14 @@ public class JobUserController {
     @ResponseBody
     public ReturnT<String> updatePermissionData(HttpServletRequest request,
                                                 String username,
-                                                @RequestParam(required = false) String[] permissionData){
+                                                @RequestParam(required = false) String[] permissionData) {
 
         XxlJobUser existUser = xxlJobUserDao.loadByName(username);
         if (existUser == null) {
             return new ReturnT<String>(ReturnT.FAIL.getCode(), "参数非法");
         }
 
-        String permissionDataArrStr = permissionData!=null?StringUtils.join(permissionData, ","):"";
+        String permissionDataArrStr = permissionData != null ? StringUtils.join(permissionData, ",") : "";
         existUser.setPermissionData(permissionDataArrStr);
         xxlJobUserDao.update(existUser);
 
