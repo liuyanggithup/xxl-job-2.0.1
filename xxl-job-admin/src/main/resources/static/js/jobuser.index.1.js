@@ -149,8 +149,7 @@ $(function(){
         rules : {
             username : {
                 required : true ,
-                rangelength:[3,50],
-                myValid01: true
+                rangelength:[3,50]
             },
             password : {
                 //required : true ,
@@ -234,8 +233,7 @@ $(function(){
         rules : {
             username : {
                 required : true ,
-                rangelength:[3,50],
-                myValid01: true
+                rangelength:[3,50]
             },
             password : {
                 //required : true ,
