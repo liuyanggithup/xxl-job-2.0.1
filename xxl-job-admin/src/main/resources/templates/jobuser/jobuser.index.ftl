@@ -128,7 +128,7 @@
                         </div>
                         <div class="form-group">
                             <label for="lastname" class="col-sm-2 control-label">用户名</label>
-                            <div class="col-sm-10"><input type="text" class="form-control" name="username" placeholder="请输入用户名" minlength="5" maxlength="50" readonly ></div>
+                            <div class="col-sm-10"><input type="text" class="form-control" name="username" placeholder="请输入用户名" minlength="3" maxlength="50" readonly ></div>
                         </div>
                         <div class="form-group">
                             <label for="lastname" class="col-sm-2 control-label">密码</label>
@@ -138,7 +138,7 @@
 									<span class="input-group-addon">
 										重置密码<input type="checkbox" name="passwordInput" >
 									</span>
-                                    <input type="text" class="form-control" name="password" placeholder="为空则不更新密码" minlength="5" maxlength="50" readonly >
+                                    <input type="text" class="form-control" name="password" placeholder="为空则不更新密码" minlength="4" maxlength="50" readonly >
                                 </div>
 
                             </div>
