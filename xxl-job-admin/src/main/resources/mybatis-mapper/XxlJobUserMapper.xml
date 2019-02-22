@@ -15,7 +15,7 @@
     <select id="loadByName" resultMap="BaseResultMap" parameterType="java.lang.String" >
         select
         <include refid="Base_Column_List" />
-        from xxl_job_qrtz_user
+        from XXL_JOB_QRTZ_USER
         where username = #{username}
     </select>
 
