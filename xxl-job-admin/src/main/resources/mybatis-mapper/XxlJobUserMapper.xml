@@ -27,7 +27,7 @@
                 AND t.username like CONCAT('%',#{username},'%')
             </if>
             <if test="permission gt -1">
-                t.permission = #{permission}
+                AND t.permission = #{permission}
             </if>
         </trim>
         ORDER BY t.username
@@ -42,7 +42,7 @@
                 AND t.username like CONCAT('%',#{username},'%')
             </if>
             <if test="permission gt -1">
-                t.permission = #{permission}
+                AND t.permission = #{permission}
             </if>
         </trim>
     </select>
