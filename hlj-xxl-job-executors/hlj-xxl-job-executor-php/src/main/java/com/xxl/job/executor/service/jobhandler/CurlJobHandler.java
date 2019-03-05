@@ -47,11 +47,16 @@ public class CurlJobHandler extends IJobHandler {
             BufferedInputStream bufferedInputStream = new BufferedInputStream(process.getInputStream());
             bufferedReader = new BufferedReader(new InputStreamReader(bufferedInputStream));
 
+            StringBuffer sb = new StringBuffer();
             // command log
             String line;
             while ((line = bufferedReader.readLine()) != null) {
                 XxlJobLogger.log(line);
+                sb.append(line);
             }
+
+            String result = sb.toString();
+            System.out.println(result);
 
             // command exit
             process.waitFor();
