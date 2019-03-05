@@ -27,15 +27,17 @@ public class CurlJobHandler extends IJobHandler {
         String command = "curl ";
         String m = CommandParserUtil.getOptionValue("-m", param);
         if (StringUtils.isEmpty(m)) {
-            command += "-m 60 ";
+            command += "-m 600 ";
         }
 
         String connectTimeout = CommandParserUtil.getOptionValue("--connect-timeout", param);
         if (StringUtils.isEmpty(connectTimeout)) {
-            command += "--connect-timeout 60 ";
+            command += "--connect-timeout 600 ";
         }
 
         command += param;
+
+        System.out.println(command);
 
         int exitValue = -1;
         BufferedReader bufferedReader = null;
